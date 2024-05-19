@@ -2,15 +2,22 @@
 include_once ('./import.php');
 include_once ('./make_edges.php');
 include_once ('./sort.php');
+include_once ('./direction.php');
 session_start();
 //import punktów z pliku
 $_SESSION['points']=import_from_file('./points2.txt');
+//określenie kierunku punktów
+if (isClockwise($_SESSION['points'])) {
+    $_SESSION['dir']=1;
+} else {
+    $_SESSION['dir']=0;
+}
 //tworzenie krawędzi
 $_SESSION['edges']=make_edges($_SESSION['points']);
 //sortowanie
 $_SESSION['sorted_points']=$_SESSION['points'];
 usort($_SESSION['sorted_points'], 'comparePoints');
-
+//tworzenie tablic pomocniczych
 $_SESSION['t']=array();
 $_SESSION['d']=array();
 

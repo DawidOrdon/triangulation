@@ -81,4 +81,15 @@ function drawLetters(points, letter) {
         context.fillText(letter, x, y);
     }
 }
-
+function drawLine(color, x1, y1, x2, y2) {
+    var canvas = document.getElementById('myCanvas');
+    if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.closePath();
+        ctx.stroke();
+    }
+}
