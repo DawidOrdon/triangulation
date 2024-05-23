@@ -1,0 +1,11 @@
+.left{
+    float: left;
+    width: 600px;
+}
+.right{
+    float: left;
+    width: 900px;
+    height: 700px;
+    scroll-behavior: auto;
+    overflow-y: auto;
+}

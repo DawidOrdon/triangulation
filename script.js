@@ -27,7 +27,7 @@ function drawAxes(width, height, unitStep) {
             context.strokeStyle = 'black';
             context.stroke();
             context.fillStyle = 'black';
-            context.fillText((i - width / 2) / 10, i - 5, height / 2 + 20);
+            context.fillText((i - width / 2) / 30, i - 5, height / 2 + 20);
         }
     }
 
@@ -54,7 +54,7 @@ function drawAxes(width, height, unitStep) {
             context.strokeStyle = 'black';
             context.stroke();
             context.fillStyle = 'black';
-            context.fillText((-i + height / 2) / 10, width / 2 + 10, i + 5);
+            context.fillText((-i + height / 2) / 30, width / 2 + 10, i + 5);
         }
     }
 }
@@ -69,27 +69,34 @@ function drawPolygon(color, points) {
     }
     context.closePath();
     context.stroke();
+
+    // Dodanie numeru wierzchołka na wszystkich wierzchołkach
+    for (var i = 0; i < points.length; i++) {
+        var x = points[i][0] * size + canvas.width / 2;
+        var y = -points[i][1] * size + canvas.height / 2;
+        var number = points[i][2]; // Zakładamy, że trzeci element to numer
+        context.fillStyle = color; // Możesz ustawić inny kolor tekstu, jeśli chcesz
+        context.fillText(number, x, y);
+    }
 }
+
 
 // Funkcja do nanoszenia liter w określonych punktach
 function drawLetters(points, letter) {
     context.fillStyle = 'black';
     context.font = '14px Arial';
     for (var i = 0; i < points.length; i++) {
-        var x = points[i][0] * size + canvas.width / 2 - 5;
+        var x = points[i][0] * size + canvas.width / 2 - 20;
         var y = -points[i][1] * size + canvas.height / 2 + 5;
         context.fillText(letter, x, y);
     }
 }
 function drawLine(color, x1, y1, x2, y2) {
-    var canvas = document.getElementById('myCanvas');
-    if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
-        ctx.strokeStyle = color;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.closePath();
-        ctx.stroke();
-    }
+    context.strokeStyle = color;
+    context.beginPath();
+    context.moveTo(x1 * size + canvas.width / 2, -y1 * size + canvas.height / 2);
+    context.lineTo(x2 * size + canvas.width / 2, -y2 * size + canvas.height / 2);
+    context.closePath();
+    context.stroke();
 }
+
