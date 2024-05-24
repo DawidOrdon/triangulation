@@ -29,6 +29,12 @@ function TriangulateMonotonePolygon($p)
             $p[$i]->site = 1;
         }
     }
+    $site=$p[count($p)-2];
+//    if($site){
+//        $p[count($p)-1]->site=0;
+//    }else{
+//        $p[count($p)-1]->site=1;
+//    }
 //    print_r($p[$top]);
     echo "top punkt [{$p[$top]->x};{$p[$top]->y}]<br />";
     echo "bot punkt [{$p[$bot]->x};{$p[$bot]->y}]<br />";
@@ -75,7 +81,7 @@ function TriangulateMonotonePolygon($p)
             //powiedzmy że działa
 
         }else{
-            echo"wierzchołki są po tej samej stronach<br />";
+            echo"wierzchołki są po tej samej stronach<br /><br />    ";
             echo"wszystkie wierzchołki:";
             print_r($stos->tablica);
             echo"<br /> zdejmij 1 wierzchołek";
@@ -83,11 +89,11 @@ function TriangulateMonotonePolygon($p)
             print_r($v);
             for($i=0;$i<$stos->count();$i++){
                 //zdejmij wierzchołek
-                echo"<br /> zdejmij kolejny wierzchołek";
+                echo"<br /> zdejmij kolejny wierzchołek<br />";
                 $v=$stos->del();
                 echo"<br /> krawędz ze zdjętego do uj<br />";
                 $e=new edge($v,$u[$j]);
-                print_r($e);
+//                print_r($e);
                 //przekątna z uj do $stos->del() nie może się przecinać z innymi krawędziami
 //                print_r($edges);
                 if(if_cross($e,$edges)){
@@ -105,6 +111,12 @@ function TriangulateMonotonePolygon($p)
             $stos->add($v);
             $stos->add($u[$j]);
         }
+    }
+    echo"<br /><br /><br />koniec stosu<br />";
+    print_r($stos->tablica);
+    echo"<br /><br /><br /><br />";
+    for ($i=1;$i<$stos->count()-1;$i++){
+        $d[]=new edge($bot,$stos->del());
     }
     echo "d=";
 //    print_r($d);
