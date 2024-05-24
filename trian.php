@@ -55,16 +55,21 @@ echo "<br /><br /><br /><br />";
     foreach ($_SESSION['sorted_points'] as $p){
         $p->analyze();
     }
-
+    $d=array();
     $points_array=split_to_monotonic();
     foreach ($points_array as $points){
         if(count($points)>3){
-            $d[]=TriangulateMonotonePolygon($points);
-        }
+            echo"następna<br />";
+//            print_r($points);
+            $test=TriangulateMonotonePolygon($points);
+//            echo "ponownie d";
+//            print_r($test);
+            $d[]=$test;
 
+        }
         echo"<br /><br />";
     }
-    print_r($d);
+//    print_r($d);
 ?>
 </div>
 <script src="./script.js"></script>
@@ -162,9 +167,10 @@ echo "<br /><br /><br /><br />";
         }
         ?>
     ];
-    for (i=0;i<edges.length;i++){
-        console.log("linia z ["+edges[i][0]+","+edges[i][1]+"] do ["+edges[i][2]+","+edges[i][3]+"]")
-        drawLine('blue',edges[i][0],edges[i][1],edges[i][2],edges[i][3])
+    for (i=0;i<end_edges.length;i++){
+        console.log("test");
+        console.log("linia z ["+end_edges[i][0]+","+end_edges[i][1]+"] do ["+end_edges[i][2]+","+end_edges[i][3]+"]")
+        drawLine('blue',end_edges[i][0],end_edges[i][1],end_edges[i][2],end_edges[i][3])
     }
 </script>
 </body>
