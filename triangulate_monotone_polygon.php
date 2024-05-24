@@ -28,23 +28,37 @@ function TriangulateMonotonePolygon($p)
             $p[$i]->site = 1;
         }
     }
-    $n_p=$p;
+    $u=$p;
+    //tablica z krawędziami
+    $edges=make_edges($p);
     $d=array();
-    usort($n_p, 'comparePoints');
+    usort($u, 'comparePoints');
     $stos = new stos();
-    $stos->add($n_p[0]);
-    $stos->add($n_p[1]);
-    for ($j=2;$j<count($n_p)-2;$j++){
-        if($n_p[$j]->site != $stos->last()->site){
+    $stos->add($u[0]);
+    $stos->add($u[1]);
+    for ($j=2;$j<count($u)-2;$j++){
+        if($u[$j]->site != $stos->last()->site){
             $n_last=$stos->del();
             $n_p_last=$stos->del();
-            $d[]=new edge($n_p_last,$n_p[$j]);
+            $d[]=new edge($n_p_last,$u[$j]);
             for($i=0;$i<=$stos->count()-3;$i++){
-                $d[]=new edge($stos->del(),$n_p[$j]);
+                $d[]=new edge($stos->del(),$u[$j]);
             }
             $stos->add($n_p_last);
             $stos->add($n_last);
             echo "jest inne";
+        }else{
+            $stos->del();
+            for($i=0;$i<$stos->count();$i++){
+                //zdejmij wierzchołek
+                $v=$stos->del();
+                $e=new edge($v,$u[$j]);
+                //przekątna z uj do $stos->del() nie może się przecinać z innymi krawędziami
+                if(if_cross($e,$edges)){
+
+                }
+                //oraz musi być wewnątrz figury
+            }
         }
     }
     return($d);

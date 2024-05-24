@@ -6,6 +6,8 @@ include_once ('./direction.php');
 include_once ('./first_left.php');
 include_once ('./split_to_monotonic.php');
 include_once ('./triangulate_monotone_polygon.php');
+include_once ('./if_cross.php');
+include_once ('./edge_class.php');
 session_start();
 ?>
 
@@ -25,6 +27,20 @@ session_start();
 </div>
 <div class="right">
 <?php
+    $point1=new Point(1,1);
+    $point2=new Point(3,3);
+    $point3=new Point(3,3);
+    $point4=new Point(3,1);
+    $e1=new edge($point1,$point2);
+    $e2=new edge($point3,$point4);
+    $array[]=$e2;
+
+    if(if_cross($e1,$array)){
+        echo "przecina sie";
+    }else{
+        echo "nie przecina sie";
+    }
+echo "<br /><br /><br /><br />";
     //import punktów z pliku
     $_SESSION['points']=import_from_file('./points3.txt');
     //tworzenie krawędzi
