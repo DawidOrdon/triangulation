@@ -38,10 +38,10 @@ function TriangulateMonotonePolygon($p)
     $edges=make_edges_objects($p);
     $d=array();
     usort($u, 'comparePoints');
-    echo"posortowana tablica u:<br />";
-    foreach($u as $i=>$k){
-        echo"$i=[{$k->x};{$k->y}]<br />";
-    }
+//    echo"posortowana tablica u:<br />";
+//    foreach($u as $i=>$k){
+//        echo"$i=[{$k->x};{$k->y}]<br />";
+//    }
 
 
     $stos = new stos();
@@ -71,13 +71,23 @@ function TriangulateMonotonePolygon($p)
             }
             $stos->add($n_p_last);
             $stos->add($n_last);
+
+            //powiedzmy że działa
+
         }else{
             echo"wierzchołki są po tej samej stronach<br />";
+            echo"wszystkie wierzchołki:";
+            print_r($stos->tablica);
+            echo"<br /> zdejmij 1 wierzchołek";
             $v=$stos->del();
+            print_r($v);
             for($i=0;$i<$stos->count();$i++){
                 //zdejmij wierzchołek
+                echo"<br /> zdejmij kolejny wierzchołek";
                 $v=$stos->del();
+                echo"<br /> krawędz ze zdjętego do uj<br />";
                 $e=new edge($v,$u[$j]);
+                print_r($e);
                 //przekątna z uj do $stos->del() nie może się przecinać z innymi krawędziami
 //                print_r($edges);
                 if(if_cross($e,$edges)){

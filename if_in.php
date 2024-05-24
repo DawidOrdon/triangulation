@@ -10,7 +10,9 @@ function if_in($e,$edges)
     $x=($e->s_p->x+$e->e_p->x)/2;
     $y=$line->get_value($x);
     $point=new point($x,$y);
-
+    echo"<br /><br />punkt";
+    print_r($point);
+    echo"<br /><br /><br />";
     //sprawdzenie czy x jest w figurze
     foreach ($edges as $edge){
         if(matrix_calc($edge->s_p,$edge->e_p,$point)<0){
