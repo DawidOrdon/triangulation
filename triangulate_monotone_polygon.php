@@ -29,13 +29,6 @@ function TriangulateMonotonePolygon($p)
             $p[$i]->site = 1;
         }
     }
-    $site=$p[count($p)-2];
-//    if($site){
-//        $p[count($p)-1]->site=0;
-//    }else{
-//        $p[count($p)-1]->site=1;
-//    }
-//    print_r($p[$top]);
     echo "top punkt [{$p[$top]->x};{$p[$top]->y}]<br />";
     echo "bot punkt [{$p[$bot]->x};{$p[$bot]->y}]<br />";
     //działa
@@ -44,83 +37,60 @@ function TriangulateMonotonePolygon($p)
     $edges=make_edges_objects($p);
     $d=array();
     usort($u, 'comparePoints');
-//    echo"posortowana tablica u:<br />";
-//    foreach($u as $i=>$k){
-//        echo"$i=[{$k->x};{$k->y}]<br />";
-//    }
 
-
+    echo"deklaracja stosu oraz dodanie pierwszego i drugiego elementu<br />";
     $stos = new stos();
     $stos->add($u[0]);
     $stos->add($u[1]);
-//    echo "test stosu<br />";
-//    print_r($stos->tablica);
-//    echo "<br />";
-    for ($j=2;$j<count($u)-1;$j++){
-//        echo "test dla j=$j<br />";
 
-//        echo"if {$u[$j]->site} != {$stos->last()->site}";
+    for ($j=2;$j<count($u)-1;$j++){
 
         if($u[$j]->site != $stos->last()->site){
-//            echo"wierzchołki są po przeciwnych stronach<br />";
-            $n_last=$stos->del();
-//            echo"ostatni element";
-//            print_r($n_last);
-//            echo"<br />";
-//            print_r($stos->tablica);
-//            echo "ostatni wierchołek [{$n_last->x};{$n_last->y}]<br />";
-            $n_p_last=$stos->del();
-//            echo "przed ostatni wierchołek [{$n_p_last->x};{$n_p_last->y}]<br />";
-            $d[]=new edge($n_last,$u[$j]);
-            for($i=0;$i<=$stos->count()-3;$i++){
-                $d[]=new edge($stos->del(),$u[$j]);
+            $stos_count=$stos->count()-1;
+            for ($i=0;$i<$stos_count;$i++){
+                $d[]= new edge($stos->del(),$u[$j]);
             }
-            $stos->add($n_p_last);
-            $stos->add($n_last);
+            $stos->del();
+            $stos->add($u[($j-1)]);
+            $stos->add($u[($j)]);
 
             //powiedzmy że działa
 
         }else{
             echo"wierzchołki są po tej samej stronach<br /><br />    ";
-            echo"wszystkie wierzchołki:";
-            print_r($stos->tablica);
-            echo"<br /> zdejmij 1 wierzchołek";
+            echo"<br /> zdejmij 1 wierzchołek i zapisz w v<br />";
             $v=$stos->del();
-            print_r($v);
-            for($i=0;$i<$stos->count();$i++){
+            $counter=$stos->count();
+            for($i=0;$i<$counter;$i++){
                 //zdejmij wierzchołek
-                echo"<br /> zdejmij kolejny wierzchołek<br />";
-                $v=$stos->del();
-                echo"<br /> krawędz ze zdjętego do uj<br />";
-                $e=new edge($v,$u[$j]);
-//                print_r($e);
-                //przekątna z uj do $stos->del() nie może się przecinać z innymi krawędziami
-//                print_r($edges);
+                echo"<br /> sprawdz czy da się połączyć następny wierzchołek z uj<br />";
+                $z=$stos->last();
+                $e=new edge($z,$u[$j]);
                 if(if_cross($e,$edges)){
-                    echo "tnie";
+                    echo "Krawędz przecina inną krawędz";
                     break;
                 }else{
                     //oraz musi być wewnątrz figury
-                    if(if_in($e,$edges)){
-                        echo "poza";
+                    if(!if_in($e,$edges)){
+                        echo "Krawędz jest poza figurą";
                         break;
                     }
                 }
+                $v=$stos->del();
                 $d[]=$e;
             }
             $stos->add($v);
             $stos->add($u[$j]);
         }
     }
-    echo"<br /><br /><br />koniec stosu<br />";
-    print_r($stos->tablica);
-    echo"<br /><br /><br /><br />";
-    for ($i=1;$i<$stos->count()-1;$i++){
-        $d[]=new edge($bot,$stos->del());
+    echo"<br />Stan stosu<br />";
+    foreach ($stos->tablica as $edge){
+        echo"wierzchołek [{$edge->x}:{$edge->y}]<br />";
     }
-    echo "d=";
-//    print_r($d);
-    echo"<br />";
+    echo"Dodaj przekątne z [{$u[$bot]->x};{$u[$bot]->y}] do wszystkich wierzchołków na stosie, oprócz pierwszego i ostatniego.";
+    for ($i=1;$i<$stos->count()-1;$i++){
+        $d[]=new edge($p[$bot],$stos->tablica[$i]);
+    }
     return($d);
 }
 function find_top($p)

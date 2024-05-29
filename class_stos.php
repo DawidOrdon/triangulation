@@ -13,7 +13,7 @@ class stos {
     }
     function last()
     {
-        return ($this->tablica[$this->count()-1]);
+        return ($this->tablica[count($this->tablica)-1]);
     }
     function show() {
         for ($i=0;$i<$this->count();$i++) print_r ($this->tablica[$i]);

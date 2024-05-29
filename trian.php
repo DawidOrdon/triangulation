@@ -35,12 +35,6 @@ session_start();
     $e2=new edge($point3,$point4);
     $array[]=$e2;
 
-    if(if_cross($e1,$array)){
-        echo "przecina sie";
-    }else{
-        echo "nie przecina sie";
-    }
-echo "<br /><br /><br /><br />";
     //import punktów z pliku
     $_SESSION['points']=import_from_file('./points3.txt');
     //tworzenie krawędzi
@@ -69,7 +63,7 @@ echo "<br /><br /><br /><br />";
         }
         echo"<br /><br />";
     }
-//    print_r($d);
+
 ?>
 </div>
 <script src="./script.js"></script>

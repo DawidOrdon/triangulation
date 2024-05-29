@@ -9,7 +9,6 @@ function split_to_monotonic()
     for($d=0; $d<count($_SESSION['d']); $d++) {
 
         echo "Odcinek dzielący nr $d od x:{$_SESSION['d'][$d]->s_p->x} y:{$_SESSION['d'][$d]->s_p->y} do x:{$_SESSION['d'][$d]->e_p->x} y:{$_SESSION['d'][$d]->e_p->y} <br />";
-        echo "punkty ";
 
         for($a=0; $a<count($points_array); $a++) {
             $array1 = array();
@@ -42,12 +41,12 @@ function split_to_monotonic()
     }
 
     foreach ($points_array as $points) {
-        echo "nowa figura";
-        echo "<br /><br /><br />";
+        echo "nowo powstałą figura";
+        echo "<br /><br />";
         foreach ($points as $a1) {
             echo "V{$a1->id}[{$a1->x}:{$a1->y}] ";
         }
-        echo "<br /><br /><br />";
+        echo "<br /><br />";
     }
     return$points_array;
 
