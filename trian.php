@@ -36,7 +36,7 @@ session_start();
     $array[]=$e2;
 
     //import punktów z pliku
-    $_SESSION['points']=import_from_file('./points3.txt');
+    $_SESSION['points']=import_from_file('./points.txt');
     //tworzenie krawędzi
     $_SESSION['edges']=make_edges($_SESSION['points']);
     //sortowanie
