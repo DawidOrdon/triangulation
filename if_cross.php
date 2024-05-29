@@ -6,14 +6,8 @@ function if_cross($e, $edges){
         $calc3 = matrix_calc($edge->s_p, $edge->e_p, $e->s_p);
         $calc4 = matrix_calc($edge->s_p, $edge->e_p, $e->e_p);
 
-//        echo "calc1 = $calc1, calc2 = $calc2, calc3 = $calc3, calc4 = $calc4<br />";
 
         if (($calc1 * $calc2 < 0) && ($calc3 * $calc4 < 0)) {
-//            echo "krawędz :";print_r($e);
-//            echo "<br /> przecina się z:";print_r($edge);
-//            echo "<br />";
-//            echo "<br />";
-//            echo "<br />";
             return true;
         }
     }

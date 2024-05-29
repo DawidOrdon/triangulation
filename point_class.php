@@ -53,7 +53,7 @@ class Point{
             $id=count($_SESSION['points'])-1;
         }
 
-        echo "pomocnik e" . ($id) . "jest wiechołkiem łączącym ";
+        echo "pomocnik e" . ($id) . "jest wierzchołkiem łączącym <br />";
         if ($_SESSION['edges'][$id]->helper->type == 4) {
             //2. then Wstaw do 𝐷 przekątną łączącą 𝑣𝑖 z pomocnik(𝑒𝑖−1)
             echo "Wstaw do D przekątną łączącą v{$this->id} z pomocnikiem e" . ($id);
@@ -91,16 +91,16 @@ class Point{
 
         if($site==1){
             echo"wnętrze P leży po prawej stronie od v{$this->id}<br />";
-            echo"sprawdz czy helper ".($idm)."jest typem 4 <br /> <br />";
+            echo"sprawdź czy helper ".($idm)."jest typem 4 <br /> <br />";
             if(isset($_SESSION['edges'][$idm]->helper)){
                 if($_SESSION['edges'][$idm]->helper->type==4){
-                    echo "pomocnik e".($idm)." jest wierzchołkiem łączącym";
+                    echo "pomocnik e".($idm)." jest wierzchołkiem łączącym <br />";
                     echo"wstaw do d przekątną z v{$this->id} do pomocnika e".($idm);
                     $_SESSION['d'][]=new edge($_SESSION['points'][$this->id],$_SESSION['edges'][$idm]->helper);
                 }
             }
 
-            echo"usun e".($idm)."z T";
+            echo"usuń e".($idm)."z T";
             echo $idm;
             for($i=0;$i<=count($_SESSION['t']);$i++){
                 if($_SESSION['t'][$i]->id==$idm){
@@ -116,7 +116,7 @@ class Point{
         }else if($site==2){
             echo"wnętrze P leży po lewej stronie od v{$this->id}";
             //szukanie krawędzie bezpośrednio na lewo na ten moment zakładam że bezpośrednio na lewo jest odzcinek którego wyższy punkt jest bliżej punktu
-            echo"szukaj w t krawędzi bezpośredio na lewo od v{$this->id}<br />";
+            echo"szukaj w t krawędzi bezpośrednio na lewo od v{$this->id}<br />";
             $first_left=first_left($_SESSION['points'][$this->id],$_SESSION['t']);
             if($_SESSION['edges'][$first_left]->helper->type==4){
                 echo"pomocnik e{$first_left} jest wierzhołkiem łączącym";
@@ -131,7 +131,7 @@ class Point{
 
     public function HandleSplitVertex()
     {
-        echo"szukaj w t krawędzi bezpośredio na lewo od v{$this->id}<br />";
+        echo"szukaj w t krawędzi bezpośrednio na lewo od v{$this->id}<br />";
         $first_left=first_left($_SESSION['points'][$this->id],$_SESSION['t']);
         echo"wstaw do d przekątną z v{$this->id} do pomocnika e{$first_left}";
         $_SESSION['d'][]=new edge($_SESSION['points'][$this->id],$_SESSION['edges'][$first_left]->helper);
@@ -160,7 +160,7 @@ class Point{
                 break;
             }
         }
-        echo"szukaj w t krawędzi bezpośredio na lewo od v{$this->id}<br />";
+        echo"szukaj w t krawędzi bezpośrednio na lewo od v{$this->id}<br />";
         $first_left=first_left($_SESSION['points'][$this->id],$_SESSION['t']);
         if($_SESSION['edges'][$first_left]->helper->type==4){
             echo"pomocnik e{$first_left} jest wierzhołkiem łączącym";

@@ -63,16 +63,16 @@ function TriangulateMonotonePolygon($p)
             $counter=$stos->count();
             for($i=0;$i<$counter;$i++){
                 //zdejmij wierzchołek
-                echo"<br /> sprawdz czy da się połączyć następny wierzchołek z uj<br />";
+                echo"<br /> sprawdź czy da się połączyć następny wierzchołek z uj<br />";
                 $z=$stos->last();
                 $e=new edge($z,$u[$j]);
                 if(if_cross($e,$edges)){
-                    echo "Krawędz przecina inną krawędz";
+                    echo "Krawędź przecina inną krawędź";
                     break;
                 }else{
                     //oraz musi być wewnątrz figury
                     if(!if_in($e,$edges)){
-                        echo "Krawędz jest poza figurą";
+                        echo "Krawędź jest poza figurą <br />";
                         break;
                     }
                 }
